@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import { QuizContext } from '@/contexts/quizContext'
+import Link from 'next/link'
+import { useContext, useState } from 'react'
 
 export default function Home() {
     const [startQuiz, setStartQuiz] = useState(false)
+    const { setQuizId, setQuestionNumber } = useContext(QuizContext)
 
     return (
         <main className='p-6'>
@@ -43,12 +46,16 @@ export default function Home() {
                             This quiz can only be attempted once daily.
                         </div>
                         <div className='flex justify-center'>
-                            <button
-                                onClick={() => {}}
+                            <Link
                                 className='rounded-full bg-slate-600 px-6 py-2 font-semibold text-white'
+                                onClick={() => {
+                                    setQuizId('webd')
+                                    setQuestionNumber(1)
+                                }}
+                                href='/quiz'
                             >
                                 Start
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
