@@ -6,7 +6,13 @@ import { useContext } from 'react'
 const quizIds = Object.keys(quizes)
 
 export default function ResultPage() {
-    const { quizId, answers } = useContext(QuizContext)
+    const { quizId, answers, timePassed } = useContext(QuizContext)
+
+    const timeTakenMinutes = Math.floor(timePassed / 60)
+    const timeTakenSeconds = timePassed % 60
+
+    const timeTakenMinutesStr = (timeTakenMinutes < 10 ? '0' : '') + timeTakenMinutes
+    const timeTakenSecondsStr = (timeTakenSeconds < 10 ? '0' : '') + timeTakenSeconds
 
     if (!quizId || !quizIds.includes(quizId))
         return (
@@ -29,7 +35,7 @@ export default function ResultPage() {
 
     return (
         <div className='bg-slate-100 p-4'>
-            <h1 className=' py-4 text-5xl font-extrabold'>Quiz</h1>
+            <h1 className=' py-4 text-5xl font-extrabold text-slate-600'>Quiz</h1>
             <h2 className='py-4 text-center text-2xl'>{quiz.name} Quiz</h2>
             <div className='mx-2 flex flex-col items-center gap-3 rounded-2xl border bg-white p-4 text-center drop-shadow-lg'>
                 <div className='text-lg text-green-600'>You Scored:</div>
@@ -47,7 +53,8 @@ export default function ResultPage() {
                 <div>
                     <div className='font-semibold'>Time Taken</div>
                     <div className='text-3xl font-bold tracking-wide text-purple-500'>
-                        02:50<span className='text-base font-semibold tracking-normal text-black'> mins</span>
+                        {timeTakenMinutesStr}:{timeTakenSecondsStr}
+                        <span className='text-base font-semibold tracking-normal text-black'> mins</span>
                     </div>
                 </div>
             </div>

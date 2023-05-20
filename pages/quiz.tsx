@@ -1,13 +1,34 @@
 import { QuizContext } from '@/contexts/quizContext'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 
 import quizes from '@/quizes'
 import Link from 'next/link'
 
 export default function QuizScreen() {
-    const { questionNumber, quizId, setQuestionNumber, setAnswers, answers } = useContext(QuizContext)
+    const { questionNumber, quizId, setQuestionNumber, setAnswers, answers, timePassed, setTimePassed } =
+        useContext(QuizContext)
     const router = useRouter()
+
+    useEffect(() => {
+        let intervalId: NodeJS.Timer
+        intervalId = setInterval(tick, 1000)
+        return () => clearInterval(intervalId)
+    }, [])
+
+    function tick() {
+        setTimePassed(sec => {
+            if (sec >= 10 * 60) router.replace('/result')
+            return sec + 1
+        })
+    }
+
+    const timeLeft = 10 * 60 - timePassed
+    const timeLeftMinutes = Math.floor(timeLeft / 60)
+    const timeLeftSeconds = timeLeft % 60
+
+    const timeLeftMinutesStr = (timeLeftMinutes < 10 ? '0' : '') + timeLeftMinutes
+    const timeLeftSecondsStr = (timeLeftSeconds < 10 ? '0' : '') + timeLeftSeconds
 
     const quizIds = Object.keys(quizes)
 
@@ -31,10 +52,15 @@ export default function QuizScreen() {
     return (
         <main className='flex h-screen flex-col justify-between p-6'>
             <section>
-                <h1 className=' py-4 text-5xl font-extrabold'>Quiz</h1>
+                <h1 className=' py-4 text-5xl font-extrabold text-slate-600'>Quiz</h1>
                 <h2 className='text-2xl'>{quiz.name}</h2>
-                <div className='pt-8 text-lg font-semibold text-yellow-400'>
-                    Question <span className='tracking-widest'>{questionNumber + 1}/5</span>
+                <div className='flex items-center justify-between pt-6'>
+                    <div className='text-lg font-semibold text-yellow-400'>
+                        Question <span className='tracking-widest'>{questionNumber + 1}/5</span>
+                    </div>
+                    <div className='rounded-full bg-slate-500 px-3 py-1 text-slate-100'>
+                        {timeLeftMinutesStr}:{timeLeftSecondsStr}
+                    </div>
                 </div>
                 <div className='py-2 text-2xl font-semibold'>{question.question}</div>
             </section>
@@ -71,9 +97,14 @@ export default function QuizScreen() {
                             Submit
                         </button>
                     )}
-                    <button onClick={() => setQuestionNumber(num => num - 1)} className='underline underline-offset-4'>
-                        previous
-                    </button>
+                    {questionNumber !== 0 && (
+                        <button
+                            onClick={() => setQuestionNumber(num => num - 1)}
+                            className='underline underline-offset-4'
+                        >
+                            previous
+                        </button>
+                    )}
                 </div>
             </section>
         </main>

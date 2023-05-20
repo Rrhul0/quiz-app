@@ -7,12 +7,12 @@ import { TbFileCertificate, TbCircleNumber1 } from 'react-icons/tb'
 
 export default function Home() {
     const [startQuiz, setStartQuiz] = useState(false)
-    const { setQuizId, setQuestionNumber } = useContext(QuizContext)
+    const { setQuizId, setQuestionNumber, setAnswers, setTimePassed } = useContext(QuizContext)
 
     return (
         <main className='flex h-screen w-screen flex-col justify-between overflow-hidden p-6'>
             <section>
-                <h1 className='py-6 text-center text-9xl font-extrabold'>Quiz</h1>
+                <h1 className='py-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
                 <h2 className='py-4 text-3xl font-bold'>Web development quiz</h2>
                 <div>
                     Test your web development skills with our engaging quiz! Designed for both beginners and experienced
@@ -87,6 +87,8 @@ export default function Home() {
                                 onClick={() => {
                                     setQuizId('webd')
                                     setQuestionNumber(0)
+                                    setAnswers(Array(5).fill(null))
+                                    setTimePassed(0)
                                 }}
                                 href='/quiz'
                             >
