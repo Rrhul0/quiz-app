@@ -7,14 +7,13 @@ export default function Home() {
     const { setQuizId, setQuestionNumber } = useContext(QuizContext)
 
     return (
-        <main className='p-6'>
-            <h1 className='py-12 text-center text-9xl font-extrabold'>Quiz</h1>
+        <main className='h-screen w-screen overflow-hidden p-6'>
+            <h1 className='py-6 text-center text-9xl font-extrabold'>Quiz</h1>
             <h2 className='py-4 text-3xl font-bold'>Web development quiz</h2>
-            <div className=''>
+            <div>
                 Test your web development skills with our engaging quiz! Designed for both beginners and experienced
-                developers, this quiz covers HTML, CSS, JavaScript, and popular frameworks. Dive into questions about
-                code syntax, responsive design, best practices, and more. Challenge yourself and compare your knowledge
-                with other developers. Ready to see how you fare? Take our web development quiz now!
+                developers, this quiz covers HTML, CSS, JavaScript, and popular frameworks. Ready to see how you fare?
+                Take our web development quiz now!
             </div>
             <section className='py-4'>
                 <h3 className='py-4 text-2xl font-bold'>This Quiz Includes</h3>
@@ -34,8 +33,11 @@ export default function Home() {
                 </button>
             </div>
             {startQuiz && (
-                <div className='absolute inset-0 flex flex-col justify-end bg-slate-300 bg-opacity-40'>
-                    <div className='z-10 flex flex-col gap-4 rounded-t-2xl bg-white p-6'>
+                <div
+                    className='absolute inset-0 z-10 flex h-full flex-col justify-end bg-slate-300 bg-opacity-40'
+                    onClick={() => setStartQuiz(false)}
+                >
+                    <div className='flex flex-col gap-4 rounded-t-2xl bg-white p-6'>
                         <h3 className='py-2 text-2xl font-bold'>Quiz Rules</h3>
                         <ul className='flex flex-col gap-2 text-xl'>
                             <li>50% Passing Criteria</li>

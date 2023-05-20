@@ -42,8 +42,8 @@ export default function QuizScreen() {
                     {question.options.map((option, index) => (
                         <button
                             onClick={() => answerQuestion(index)}
-                            className={`flex items-center gap-8 rounded-xl bg-white py-5 pl-7 text-3xl drop-shadow-lg ${
-                                answers[questionNumber] === index ? 'bg-slate-500' : ''
+                            className={`flex items-center gap-8 rounded-xl py-5 pl-7 text-3xl drop-shadow-lg ${
+                                answers[questionNumber] === index ? 'bg-slate-500' : 'bg-white'
                             }`}
                             key={option}
                         >
