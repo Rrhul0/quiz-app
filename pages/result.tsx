@@ -1,6 +1,7 @@
+import SomethingWrong from '@/components/somethingWrong'
 import { QuizContext } from '@/contexts/quizContext'
+import formatTime from '@/lib/formatTime'
 import quizes from '@/quizes'
-import Link from 'next/link'
 import { useContext } from 'react'
 
 const quizIds = Object.keys(quizes)
@@ -8,18 +9,9 @@ const quizIds = Object.keys(quizes)
 export default function ResultPage() {
     const { quizId, answers, timePassed } = useContext(QuizContext)
 
-    const timeTakenMinutes = Math.floor(timePassed / 60)
-    const timeTakenSeconds = timePassed % 60
+    const { minutes: passedMinutes, seconds: passedSeconds } = formatTime(timePassed)
 
-    const timeTakenMinutesStr = (timeTakenMinutes < 10 ? '0' : '') + timeTakenMinutes
-    const timeTakenSecondsStr = (timeTakenSeconds < 10 ? '0' : '') + timeTakenSeconds
-
-    if (!quizId || !quizIds.includes(quizId))
-        return (
-            <div>
-                Something went wrong, Return to <Link href='/'>Home</Link>
-            </div>
-        )
+    if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
 
     const quiz = quizes.webd
 
@@ -53,7 +45,7 @@ export default function ResultPage() {
                 <div>
                     <div className='font-semibold'>Time Taken</div>
                     <div className='text-3xl font-bold tracking-wide text-purple-500'>
-                        {timeTakenMinutesStr}:{timeTakenSecondsStr}
+                        {passedMinutes}:{passedSeconds}
                         <span className='text-base font-semibold tracking-normal text-black'> mins</span>
                     </div>
                 </div>

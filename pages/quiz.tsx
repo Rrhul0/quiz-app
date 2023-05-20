@@ -3,7 +3,10 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect } from 'react'
 
 import quizes from '@/quizes'
-import Link from 'next/link'
+import SomethingWrong from '@/components/somethingWrong'
+import formatTime from '@/lib/formatTime'
+
+const quizIds = Object.keys(quizes)
 
 export default function QuizScreen() {
     const { questionNumber, quizId, setQuestionNumber, setAnswers, answers, timePassed, setTimePassed } =
@@ -13,31 +16,21 @@ export default function QuizScreen() {
     useEffect(() => {
         let intervalId: NodeJS.Timer
         intervalId = setInterval(tick, 1000)
+
         return () => clearInterval(intervalId)
     }, [])
 
     function tick() {
-        setTimePassed(sec => {
-            if (sec >= 10 * 60) router.replace('/result')
-            return sec + 1
-        })
+        setTimePassed(sec => sec + 1)
     }
 
+    // automatically submit the quiz after time is over
+    if (timePassed >= 10 * 60) router.replace('/result')
+
     const timeLeft = 10 * 60 - timePassed
-    const timeLeftMinutes = Math.floor(timeLeft / 60)
-    const timeLeftSeconds = timeLeft % 60
+    const { minutes, seconds } = formatTime(timeLeft)
 
-    const timeLeftMinutesStr = (timeLeftMinutes < 10 ? '0' : '') + timeLeftMinutes
-    const timeLeftSecondsStr = (timeLeftSeconds < 10 ? '0' : '') + timeLeftSeconds
-
-    const quizIds = Object.keys(quizes)
-
-    if (!quizId || !quizIds.includes(quizId))
-        return (
-            <div>
-                Something went wrong, Return to <Link href='/'>Home</Link>
-            </div>
-        )
+    if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
     const quiz = quizes.webd
 
     const question = quiz.questions[questionNumber]
@@ -59,7 +52,7 @@ export default function QuizScreen() {
                         Question <span className='tracking-widest'>{questionNumber + 1}/5</span>
                     </div>
                     <div className='rounded-full bg-slate-500 px-3 py-1 text-slate-100'>
-                        {timeLeftMinutesStr}:{timeLeftSecondsStr}
+                        {minutes}:{seconds}
                     </div>
                 </div>
                 <div className='py-2 text-2xl font-semibold'>{question.question}</div>
