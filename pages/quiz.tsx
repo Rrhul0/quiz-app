@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 export default function QuizScreen() {
     const { questionNumber, quizId, setQuestionNumber, setAnswers, answers } = useContext(QuizContext)
+    const router = useRouter()
 
     const quizIds = Object.keys(quizes)
 
@@ -61,9 +62,14 @@ export default function QuizScreen() {
                             Next
                         </button>
                     ) : (
-                        <Link href='/result' className='rounded-full bg-slate-600 px-6 py-2 font-semibold text-white'>
+                        <button
+                            onClick={() => router.replace('/result')}
+                            // by this if user try to click back after submit
+                            //they will go direct to home page and not able to change answers
+                            className='rounded-full bg-slate-600 px-6 py-2 font-semibold text-white'
+                        >
                             Submit
-                        </Link>
+                        </button>
                     )}
                     <button onClick={() => setQuestionNumber(num => num - 1)} className='underline underline-offset-4'>
                         previous
