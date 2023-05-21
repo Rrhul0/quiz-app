@@ -22,7 +22,7 @@ export default function QuizHome() {
     const quiz = quizes[quizId]
 
     return (
-        <main className='relative flex h-screen w-screen flex-col justify-between p-6'>
+        <main className='relative flex min-h-full w-full flex-col justify-between bg-slate-100 p-6'>
             <section>
                 <h1 className='pb-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
                 <h2 className='pb-2 text-2xl font-bold'>{quiz.name}</h2>
@@ -69,7 +69,7 @@ export default function QuizHome() {
             {startQuiz && (
                 <div className='absolute inset-0 z-10 flex flex-col bg-slate-300 bg-opacity-40'>
                     <button onClick={() => setStartQuiz(false)} className='h-full w-full'></button>
-                    <div className='flex flex-col gap-8 rounded-t-2xl bg-white p-6'>
+                    <div className='flex flex-col items-center gap-8 rounded-t-2xl bg-white p-6'>
                         <h3 className='text-3xl font-bold'>Quiz Rules</h3>
                         <ul className='flex flex-col gap-6 '>
                             <li className='flex items-center gap-4'>

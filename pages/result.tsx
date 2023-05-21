@@ -30,7 +30,7 @@ export default function ResultPage() {
         <div className='bg-slate-100 p-4'>
             <h1 className=' py-4 text-5xl font-extrabold text-slate-600'>Quiz</h1>
             <h2 className='py-4 text-center text-2xl'>{quiz.name} Quiz</h2>
-            <div className='mx-2 flex flex-col items-center gap-3 rounded-2xl border bg-white p-4 text-center drop-shadow-lg'>
+            <div className='mx-2 flex flex-col items-center gap-3 rounded-2xl border bg-white p-4 text-center drop-shadow-lg sm:mx-10 md:mx-20 lg:mx-32'>
                 <div className='text-lg text-green-600'>You Scored:</div>
                 <div className='text-3xl font-semibold text-purple-500'>{score}%</div>
                 <p className='text-lg font-bold'>
@@ -48,7 +48,7 @@ export default function ResultPage() {
                         : "You've done great, and I encourage you to keep up the excellent work!"}
                 </p>
             </div>
-            <div className='flex justify-between p-8'>
+            <div className='flex justify-between p-8 sm:mx-10 md:mx-20 lg:mx-32'>
                 <div>
                     <div className='font-semibold'>Your Score</div>
                     <div className='text-3xl font-bold tracking-wide text-purple-500'>{correct}/5</div>
