@@ -45,9 +45,9 @@ export default function QuizScreen() {
     return (
         <main className='flex h-screen flex-col justify-between p-6'>
             <section>
-                <h1 className=' py-4 text-5xl font-extrabold text-slate-600'>Quiz</h1>
+                <h1 className=' pb-4 text-5xl font-extrabold text-slate-600'>Quiz</h1>
                 <h2 className='text-2xl'>{quiz.name}</h2>
-                <div className='flex items-center justify-between pt-6'>
+                <div className='flex items-center justify-between pt-4'>
                     <div className='text-lg font-semibold text-yellow-400'>
                         Question <span className='tracking-widest'>{questionNumber + 1}/5</span>
                     </div>
@@ -58,11 +58,11 @@ export default function QuizScreen() {
                 <div className='py-2 text-2xl font-semibold'>{question.question}</div>
             </section>
             <section>
-                <div className='flex flex-col gap-6'>
+                <div className='flex flex-col gap-5'>
                     {question.options.map((option, index) => (
                         <button
                             onClick={() => answerQuestion(index)}
-                            className={`flex items-center gap-8 rounded-xl py-5 pl-7 text-3xl drop-shadow-lg ${
+                            className={`flex items-center gap-8 rounded-xl py-3 pl-7 text-3xl drop-shadow-lg ${
                                 answers[questionNumber] === index ? 'bg-slate-500' : 'bg-white'
                             }`}
                             key={option}

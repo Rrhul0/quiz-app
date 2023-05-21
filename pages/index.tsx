@@ -10,10 +10,10 @@ export default function Home() {
     const { setQuizId, setQuestionNumber, setAnswers, setTimePassed } = useContext(QuizContext)
 
     return (
-        <main className='flex h-screen w-screen flex-col justify-between overflow-hidden p-6'>
+        <main className='relative flex h-screen w-screen flex-col justify-between p-6'>
             <section>
-                <h1 className='py-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
-                <h2 className='py-4 text-3xl font-bold'>Web development quiz</h2>
+                <h1 className='pb-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
+                <h2 className='pb-4 text-3xl font-bold'>Web development quiz</h2>
                 <div>
                     Test your web development skills with our engaging quiz! Designed for both beginners and experienced
                     developers, this quiz covers HTML, CSS, JavaScript, and popular frameworks. Ready to see how you
@@ -48,10 +48,8 @@ export default function Home() {
                 </div>
             </section>
             {startQuiz && (
-                <div
-                    className='absolute inset-0 z-10 flex h-full flex-col justify-end bg-slate-300 bg-opacity-40'
-                    onClick={() => setStartQuiz(false)}
-                >
+                <div className='absolute inset-0 z-10 flex flex-col bg-slate-300 bg-opacity-40'>
+                    <button onClick={() => setStartQuiz(false)} className='h-full w-full'></button>
                     <div className='flex flex-col gap-8 rounded-t-2xl bg-white p-6'>
                         <h3 className='text-3xl font-bold'>Quiz Rules</h3>
                         <ul className='flex flex-col gap-6 '>
