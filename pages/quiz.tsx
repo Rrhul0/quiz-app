@@ -31,7 +31,7 @@ export default function QuizScreen() {
     const { minutes, seconds } = formatTime(timeLeft)
 
     if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
-    const quiz = quizes.webd
+    const quiz = quizes[quizId]
 
     const question = quiz.questions[questionNumber]
 

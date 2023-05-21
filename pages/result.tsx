@@ -10,8 +10,6 @@ const quizIds = Object.keys(quizes)
 export default function ResultPage() {
     const { quizId, answers, timePassed } = useContext(QuizContext)
 
-    const { minutes: passedMinutes, seconds: passedSeconds } = formatTime(timePassed)
-
     if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
 
     const quiz = quizes.webd
@@ -25,6 +23,9 @@ export default function ResultPage() {
     })
 
     const score = (correct / 5) * 100
+
+    const { minutes: passedMinutes, seconds: passedSeconds } = formatTime(timePassed)
+    const { minutes: avgMinutes, seconds: avgSeconds } = formatTime(quiz.avarageTimeTaken)
 
     return (
         <div className='bg-slate-100 p-4'>
@@ -52,7 +53,7 @@ export default function ResultPage() {
                 <div>
                     <div className='font-semibold'>Your Score</div>
                     <div className='text-3xl font-bold tracking-wide text-purple-500'>{correct}/5</div>
-                    <div className='pt-2 text-sm'>Avg. Score: 2</div>
+                    <div className='pt-2 text-sm'>Avg. Score: {quiz.avarageScore}</div>
                 </div>
                 <div>
                     <div className='font-semibold'>Time Taken</div>
@@ -60,7 +61,9 @@ export default function ResultPage() {
                         {passedMinutes}:{passedSeconds}
                         <span className='text-base font-semibold tracking-normal text-black'> mins</span>
                     </div>
-                    <div className='pt-2 text-sm '>Avg. Time: 01:34 mins</div>
+                    <div className='pt-2 text-sm '>
+                        Avg. Time: {avgMinutes}:{avgSeconds} mins
+                    </div>
                 </div>
             </div>
             <div className='flex w-full justify-center pt-8'>
