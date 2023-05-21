@@ -11,8 +11,7 @@ export default function ResultPage() {
     const { quizId, answers, timePassed } = useContext(QuizContext)
 
     if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
-
-    const quiz = quizes.webd
+    const quiz = quizes[quizId]
 
     let correct = 0
     let incorrect = 0
