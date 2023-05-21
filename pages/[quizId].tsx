@@ -4,21 +4,40 @@ import { useContext, useState } from 'react'
 import { BiTimeFive, BiErrorCircle } from 'react-icons/bi'
 import { AiOutlineQuestionCircle } from 'react-icons/ai'
 import { TbFileCertificate, TbCircleNumber1 } from 'react-icons/tb'
+import { useRouter } from 'next/router'
+import SomethingWrong from '@/components/somethingWrong'
+import quizes from '@/quizes'
+
+const quizIds = Object.keys(quizes)
 
 export default function QuizHome() {
     const [startQuiz, setStartQuiz] = useState(false)
     const { setQuizId, setQuestionNumber, setAnswers, setTimePassed } = useContext(QuizContext)
 
+    const router = useRouter()
+    const quizId = router.query.quizId
+    if (typeof quizId !== 'string') return <SomethingWrong />
+
+    if (!quizId || !quizIds.includes(quizId)) return <SomethingWrong />
+    const quiz = quizes[quizId]
+
     return (
         <main className='relative flex h-screen w-screen flex-col justify-between p-6'>
             <section>
                 <h1 className='pb-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
-                <h2 className='pb-4 text-3xl font-bold'>Web development quiz</h2>
-                <div>
-                    Test your web development skills with our engaging quiz! Designed for both beginners and experienced
-                    developers, this quiz covers HTML, CSS, JavaScript, and popular frameworks. Ready to see how you
-                    fare? Take our web development quiz now!
-                </div>
+                <h2 className='pb-2 text-2xl font-bold'>{quiz.name}</h2>
+                <h3
+                    className={
+                        quiz.level === 'Easy'
+                            ? 'text-green-500'
+                            : quiz.level === 'Medium'
+                            ? 'text-yellow-500'
+                            : 'text-red-500'
+                    }
+                >
+                    {quiz.level} level
+                </h3>
+                <p className='pt-2'>{quiz.desc}</p>
             </section>
             <section className=''>
                 <h3 className='py-4 text-2xl font-bold'>This Quiz Includes</h3>
@@ -83,7 +102,7 @@ export default function QuizHome() {
                             <Link
                                 className='rounded-full bg-slate-600 px-6 py-2 font-semibold text-white'
                                 onClick={() => {
-                                    setQuizId('webd')
+                                    setQuizId(quizId)
                                     setQuestionNumber(0)
                                     setAnswers(Array(5).fill(null))
                                     setTimePassed(0)
