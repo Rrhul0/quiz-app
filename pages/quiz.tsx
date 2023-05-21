@@ -58,7 +58,7 @@ export default function QuizScreen() {
                 <div className='py-2 text-2xl font-semibold'>{question.question}</div>
             </section>
             <section>
-                <div className='flex flex-col gap-5'>
+                <div className='flex flex-col gap-5 sm:px-20 md:px-32 lg:px-48'>
                     {question.options.map((option, index) => (
                         <button
                             onClick={() => answerQuestion(index)}

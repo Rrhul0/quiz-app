@@ -7,8 +7,8 @@ export default function Home() {
         <>
             <main className='relative h-[calc(100vh-60px)] w-screen p-6'>
                 <h1 className='pb-6 text-center text-9xl font-extrabold text-slate-600'>Quiz</h1>
-                <h3 className='pb-2 text-xl font-semibold'>Available Quizes:</h3>
-                <div className='flex flex-col gap-4'>
+                <h3 className='pb-2 text-xl font-semibold sm:px-10 md:px-32 lg:px-48'>Available Quizes:</h3>
+                <div className='flex flex-col gap-4 sm:px-10 md:px-32 lg:px-48'>
                     {Object.values(quizes).map(quiz => (
                         <div key={quiz.id} className='w-full rounded-lg bg-white p-2 drop-shadow-lg'>
                             <Link href={`/${quiz.id}`}>
